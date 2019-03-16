@@ -1,5 +1,5 @@
 ## Interface: 70100
-## Title: DiscUI
+## Title: RSUI
 ## Notes: Mierihn is gay
 ## Author: Gay
 ## Version: v0.1
