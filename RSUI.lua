@@ -76,7 +76,6 @@ tempF:SetScript("OnEvent",function()
     function RSUI.auraTOnUpdate(self,et)
       self.et=self.et+et
       if self.et<0.1 then return end
-      print("update")
       self.et=0
       local rT=self.eT-GetTime()
       self.normal.text:SetText(mf(rT))
@@ -258,7 +257,6 @@ tempF:SetScript("OnEvent",function()
       for i=1,40 do 
         local name,_,count,_,d,eT,_,_,_,id=UnitAura("player",i,"HELPFUL","PLAYER")
         if not name then break end
-        print(name,id)
         if auraPort[id] then activeAuras[id]={d=d,eT=eT,count=count} end
       end  
       
