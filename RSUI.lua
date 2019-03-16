@@ -36,6 +36,7 @@ tempF:SetScript("OnEvent",function()
     local mf=math.floor
     local afterDo=C_Timer.After
     local pairs=pairs
+    local echoBoys={"rip","hst","lb","cbt"}
     local playerName=UnitName("player")
     local nCheck=4 --means echecking 4 times across the duration of the cooldown (to account for random changes, kinda)
                    --I know it's not clean but it still seems safe for little loss
@@ -209,17 +210,22 @@ tempF:SetScript("OnEvent",function()
       local _,_,_,ht=GetTalentInfo(7,1,1)
       local _,_,_,wsp=GetTalentInfo(7,2,1)
       local _,_,_,asc=GetTalentInfo(7,3,1)
+      local _,_,_,cbt=GetTalentInfo(6,3,1)
       
       if ul then RSUI.ul:Show(); RSUI.ul:onCast() else RSUI.ul:Hide() end
-      if echo then RSUI.rip.echo=true; RSUI.hst.echo=true; RSUI.lb.echo=true; else RSUI.rip.echo=false; RSUI.hst.echo=false; RSUI.lb.echo=true; end
       if apt then RSUI.apt:Show(); RSUI.apt:onCast() else RSUI.apt:Hide() end 
       if dp then RSUI.dp:Show(); RSUI.dp:onCast() else RSUI.dp:Hide() end 
       if ht then RSUI.ht:Show(); else RSUI.ht:Hide() end
       if ewt then RSUI.ewt:Show() else RSUI.ewt:Hide() end
+      if cbt then RSUI.hst:Hide(); RSUI.cbt:Show() else RSUI.hst:Show(); RSUI.cbt:Hide() end
+      
+      for k,v in pairs(echoBoys) do 
+        RSUI[v].echo=echo or false
+      end
       
       --Why 0.5? idk seems to work fine stfu
       afterDo(0.5, function()
-          for k,v in pairs({"rip","hst","lb"}) do 
+          for k,v in pairs(echoBoys) do 
              RSUI[v]:onCast()
           end
       end)
@@ -448,6 +454,11 @@ tempF:SetScript("OnEvent",function()
     RSUI.hst:SetPoint("TOPLEFT",RSUI.rip,"BOTTOMLEFT",0,-2-RSUI.bigS)
     RSUI.hst.onCast=RSUI.onCastRip
     RSUI.hst.offCD.text2:SetTextColor(green[1],green[2],green[3])
+   
+    RSUI.cbt=createCDIcon(157153,"med",true)
+    RSUI.cbt:SetPoint("TOPLEFT",RSUI.rip,"BOTTOMLEFT",0,-2-RSUI.bigS)
+    RSUI.cbt.onCast=RSUI.onCastRip
+    RSUI.cbt.offCD.text2:SetTextColor(green[1],green[2],green[3])
    
     RSUI.dp=createCDIcon(252159,"med")
     RSUI.dp:SetPoint("TOPRIGHT",RSUI.ul,"BOTTOMRIGHT",0,-2-RSUI.bigS)
